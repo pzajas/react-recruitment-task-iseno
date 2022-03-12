@@ -15,6 +15,8 @@ function App() {
   const [moviesList, setMoviesList] = useState([])
   const [input, setInput] = useState("")
 
+  let [movieCast, setMovieCast] = useState([])
+
   const API_KEY = "46e56d3f76c06d160ec38e2e58d674ef"
 
   const handleOnChange = e => {
@@ -27,6 +29,8 @@ function App() {
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input}`)
       .then(response => response.json())
       .then(data => setMoviesList(data.results))
+
+    console.log(movieCast)
 
     setInput("")
   }

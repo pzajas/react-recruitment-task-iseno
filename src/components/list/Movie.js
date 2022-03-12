@@ -21,26 +21,35 @@ const Movie = ({ item }) => {
   let [numberOfVotes, setNumberOfVotes] = useState(0)
   let [sumOfVotePoints, setSumOfVotePoints] = useState(0)
   let [averageMovieScore, setAverageMovieScore] = useState(0)
+  let [movieCast, setMovieCast] = useState([])
 
   const handleVote = index => {
     setNumberOfVotes(numberOfVotes + 1)
     setSumOfVotePoints((sumOfVotePoints += index + 1))
   }
 
+  const handleFetchMovieCast = () => {
+    fetch(`https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=46e56d3f76c06d160ec38e2e58d674ef`)
+      .then(response => response.json())
+      .then(credits => setMovieCast(credits.cast))
+  }
+
   averageMovieScore = numberOfVotes !== 0 ? (sumOfVotePoints / numberOfVotes).toFixed(3) : "No score"
 
   return (
-    <StyledMovieContainer style={{ cursor: "pointer" }} onClick={() => console.log(item.id)}>
-      {item.title}
-      ---
+    <StyledMovieContainer style={{ cursor: "pointer" }}>
+      <div onClick={() => console.log(item.id)}>{item.title}</div>
+      <div>
+        <div onClick={handleFetchMovieCast}>xxx</div>
+        {movieCast.map(actor => (
+          <li>{actor.name}</li>
+        ))}
+      </div>
       {item.release_date.split("-").reverse().join("-")}
       ---
-      {/* {numberOfVotes}
-      {sumOfVotePoints} */}
-      ---
       {averageMovieScore}
-      {stars.map((button, index) => (
-        <StyledButtonContainer onClick={() => handleVote(index)}>
+      {stars.map((_, index) => (
+        <StyledButtonContainer key={index} onClick={() => handleVote(index)}>
           <StyledStarButton onClick={() => handleVote(index)} />
         </StyledButtonContainer>
       ))}

@@ -1,8 +1,15 @@
-import "./App.css"
-
 import { useState } from "react"
+import styled from "styled-components"
 import Form from "./components/form/Form"
 import List from "./components/form/List"
+
+const StyledApplicationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 2rem;
+`
 
 function App() {
   const [moviesList, setMoviesList] = useState([])
@@ -25,10 +32,10 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <StyledApplicationContainer>
       <Form handleOnSubmit={handleOnSubmit} handleOnChange={handleOnChange} input={input} />
       <List moviesList={moviesList} />
-    </div>
+    </StyledApplicationContainer>
   )
 }
 

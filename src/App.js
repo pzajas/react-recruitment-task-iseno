@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components"
 import Form from "./components/form/Form"
-import List from "./components/form/List"
+import List from "./components/list/List"
 
 const StyledApplicationContainer = styled.div`
   display: flex;

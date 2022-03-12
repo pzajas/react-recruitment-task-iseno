@@ -1,11 +1,16 @@
-import React from "react"
+import styled from "styled-components"
+
+const StyledFormContainer = styled.form`
+  display: flex;
+  padding: 2rem;
+`
 
 const Form = ({ handleOnSubmit, handleOnChange, input }) => {
   return (
-    <form onSubmit={handleOnSubmit}>
+    <StyledFormContainer onSubmit={handleOnSubmit}>
       <input value={input} onChange={handleOnChange} />
       <button>Submit</button>
-    </form>
+    </StyledFormContainer>
   )
 }
 

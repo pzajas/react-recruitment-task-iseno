@@ -1,6 +1,10 @@
 import { useState } from "react"
+import Modal from "react-modal"
 import styled from "styled-components"
 import StarButton from "../../elements/buttons/StarButton"
+import MovieCard from "../card/MovieCard"
+
+// import Modal from "react-modal"
 
 const StyledMovieContainer = styled.div`
   display: flex;
@@ -15,13 +19,14 @@ const StyledStarButton = styled(StarButton)`
   cursor: pointer;
 `
 
-const Movie = ({ item }) => {
+const Movie = ({ item, children }) => {
   const stars = [<StarButton />, <StarButton />, <StarButton />, <StarButton />, <StarButton />]
 
   let [numberOfVotes, setNumberOfVotes] = useState(0)
   let [sumOfVotePoints, setSumOfVotePoints] = useState(0)
   let [averageMovieScore, setAverageMovieScore] = useState(0)
   let [movieCast, setMovieCast] = useState([])
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleVote = index => {
     setNumberOfVotes(numberOfVotes + 1)
@@ -34,11 +39,18 @@ const Movie = ({ item }) => {
       .then(credits => setMovieCast(credits.cast))
   }
 
+  const handleIsModalVisible = () => {
+    setIsModalVisible(true)
+  }
+
   averageMovieScore = numberOfVotes !== 0 ? (sumOfVotePoints / numberOfVotes).toFixed(3) : "No score"
 
   return (
     <StyledMovieContainer style={{ cursor: "pointer" }}>
-      <div onClick={() => console.log(item.id)}>{item.title}</div>
+      <div onClick={handleIsModalVisible}>{item.title}</div>
+      <Modal isOpen={isModalVisible}>
+        <MovieCard setIsModalVisible={setIsModalVisible} movie={item} />
+      </Modal>
       <div>
         <div onClick={handleFetchMovieCast}>xxx</div>
         {movieCast.map(actor => (

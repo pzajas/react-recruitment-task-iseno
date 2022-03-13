@@ -30,8 +30,6 @@ function App() {
       .then(response => response.json())
       .then(data => setMoviesList(data.results))
 
-    console.log(movieCast)
-
     setInput("")
   }
 

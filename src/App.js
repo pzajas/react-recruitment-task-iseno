@@ -9,6 +9,7 @@ const StyledApplicationContainer = styled.div`
   align-items: center;
   list-style: none;
   padding: 2rem;
+  height: 10rem;
 `
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
       .then(data => setMoviesList(data.results))
 
     setInput("")
+
+    console.log(moviesList)
   }
 
   return (

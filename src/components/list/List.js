@@ -3,19 +3,19 @@ import Movie from "./Movie"
 
 const StyledListContainer = styled.div`
   color: white;
+  width: 70%;
 
   li {
     display: flex;
     justify-content: center;
-    padding: 0.5rem;
     background-color: #353535;
     margin-bottom: 0.5rem;
   }
 `
 
-const List = ({ moviesList }) => {
+const List = ({ moviesList, className }) => {
   return (
-    <StyledListContainer>
+    <StyledListContainer className={className}>
       {moviesList.map(item => (
         <li key={item.id}>
           <Movie item={item} />

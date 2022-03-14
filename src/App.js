@@ -10,7 +10,13 @@ const StyledApplicationContainer = styled.div`
   list-style: none;
   padding: 2rem;
   height: 10rem;
+
+  & * {
+    font-family: "Poppins", sans-serif;
+  }
 `
+
+const StyledListContainer = styled(List)``
 
 function App() {
   const [moviesList, setMoviesList] = useState([])
@@ -39,7 +45,7 @@ function App() {
   return (
     <StyledApplicationContainer>
       <Form handleOnSubmit={handleOnSubmit} handleOnChange={handleOnChange} input={input} />
-      <List moviesList={moviesList} />
+      <StyledListContainer moviesList={moviesList} />
     </StyledApplicationContainer>
   )
 }

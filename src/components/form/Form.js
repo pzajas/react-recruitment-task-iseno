@@ -15,6 +15,7 @@ const StyledFormContainer = styled.form`
   button {
     border: none;
     background-color: gold;
+    cursor: pointer;
   }
 `
 

@@ -3,18 +3,34 @@ import Modal from "react-modal"
 import styled from "styled-components"
 import MovieCard from "../card/MovieCard"
 
-// import Modal from "react-modal"
-
 const StyledMovieContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
-  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+`
+
+const StyledDataContainer = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+
+  div {
+    text-align: right;
+  }
 `
 
 const StyledModalContainer = styled(Modal)`
-  padding: 10rem;
+  padding: 0 10rem;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,8 +55,7 @@ const Movie = ({ item }) => {
 
   return (
     <StyledMovieContainer style={{ cursor: "pointer" }}>
-      <div onClick={handleIsModalVisible}>{item.title}</div>
-      <StyledModalContainer isOpen={isModalVisible}>
+      <StyledModalContainer isOpen={isModalVisible} style={{ overlay: { backgroundColor: "rgba(22, 22, 22, 0.9)" } }}>
         <MovieCard
           sumOfVotePoints={sumOfVotePoints}
           numberOfVotes={numberOfVotes}
@@ -52,17 +67,21 @@ const Movie = ({ item }) => {
           movie={item}
         />
       </StyledModalContainer>
-      <div>
-        {/* <div onClick={handleFetchMovieCast}>xxx</div> */}
+      <StyledDataContainer>
+        <p onClick={handleIsModalVisible}>{item.title}</p>
+        <div>{item.release_date.split("-").reverse().join("-")}</div>
+        <div> {sumOfVotePoints === 0 ? "No votes" : averageMovieScore.toFixed(3)}</div>
+      </StyledDataContainer>
+    </StyledMovieContainer>
+  )
+}
+
+{
+  /* <div>
         {movieCast.map(actor => (
           <li>{actor.name}</li>
         ))}
-      </div>
-      {item.release_date.split("-").reverse().join("-")}
-      ---
-      {sumOfVotePoints === 0 ? "No votes" : averageMovieScore.toFixed(3)}
-    </StyledMovieContainer>
-  )
+      </div> */
 }
 
 export default Movie

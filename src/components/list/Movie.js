@@ -1,6 +1,9 @@
 import { useState } from "react"
 import Modal from "react-modal"
 import styled from "styled-components"
+import { Angular } from "@styled-icons/fa-brands/Angular"
+import { ReactLogo } from "@styled-icons/fa-brands/ReactLogo"
+import { Vuejs } from "@styled-icons/fa-brands/Vuejs"
 import MovieCard from "../card/MovieCard"
 
 const StyledMovieContainer = styled.div`
@@ -14,7 +17,7 @@ const StyledMovieContainer = styled.div`
 
 const StyledDataContainer = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
   justify-content: space-between;
   width: 100%;
   align-items: center;
@@ -26,6 +29,16 @@ const StyledDataContainer = styled.div`
   div {
     text-align: right;
   }
+`
+
+const StyledReactIcon = styled(ReactLogo)`
+  width: 1rem;
+`
+const StyledAngualrIcon = styled(Angular)`
+  width: 1rem;
+`
+const StyledVueIcon = styled(Vuejs)`
+  width: 1rem;
 `
 
 const StyledModalContainer = styled(Modal)`
@@ -42,6 +55,8 @@ const Movie = ({ item }) => {
   let [averageMovieScore, setAverageMovieScore] = useState(0)
   let [sumOfVotePoints, setSumOfVotePoints] = useState(0)
   let [numberOfVotes, setNumberOfVotes] = useState(0)
+
+  console.log(item.genre_ids.map(item => item))
 
   // const handleFetchMovieCast = () => {
   //   fetch(`https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=46e56d3f76c06d160ec38e2e58d674ef`)
@@ -69,7 +84,13 @@ const Movie = ({ item }) => {
       </StyledModalContainer>
       <StyledDataContainer>
         <p onClick={handleIsModalVisible}>{item.title}</p>
+        <div>
+          {item.genre_ids.map(item =>
+            item < 16 ? <StyledReactIcon /> : item < 100 ? <StyledAngualrIcon /> : <StyledVueIcon />
+          )}
+        </div>
         <div>{item.release_date.split("-").reverse().join("-")}</div>
+
         <div> {sumOfVotePoints === 0 ? "No votes" : averageMovieScore.toFixed(3)}</div>
       </StyledDataContainer>
     </StyledMovieContainer>

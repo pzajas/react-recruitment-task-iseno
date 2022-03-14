@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import Form from "./components/form/Form"
-import List from "./components/list/List"
+import LastVote from "./components/lastvote/LastVote"
+import Movies from "./components/movies/Movies"
 
 const StyledApplicationContainer = styled.div`
   display: flex;
@@ -16,36 +17,38 @@ const StyledApplicationContainer = styled.div`
   }
 `
 
-const StyledListContainer = styled(List)``
+const StyledListContainer = styled(Movies)``
 
 function App() {
+  const [searchInput, setSearchInput] = useState("")
   const [moviesList, setMoviesList] = useState([])
-  const [input, setInput] = useState("")
-
-  let [movieCast, setMovieCast] = useState([])
+  const [lastVote, setLastVote] = useState([])
 
   const API_KEY = "46e56d3f76c06d160ec38e2e58d674ef"
 
+  useEffect(() => {
+    localStorage.setItem("lastVote", JSON.stringify(lastVote))
+  }, [lastVote])
+
   const handleOnChange = e => {
-    setInput(e.target.value)
+    setSearchInput(e.target.value)
   }
 
   const handleOnSubmit = e => {
     e.preventDefault()
 
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input}`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchInput}`)
       .then(response => response.json())
       .then(data => setMoviesList(data.results))
 
-    setInput("")
-
-    console.log(moviesList)
+    setSearchInput("")
   }
 
   return (
     <StyledApplicationContainer>
-      <Form handleOnSubmit={handleOnSubmit} handleOnChange={handleOnChange} input={input} />
-      <StyledListContainer moviesList={moviesList} />
+      <Form handleOnSubmit={handleOnSubmit} handleOnChange={handleOnChange} input={searchInput} />
+      <StyledListContainer moviesList={moviesList} lastVote={lastVote} setLastVote={setLastVote} />
+      <LastVote lastVote={lastVote} />
     </StyledApplicationContainer>
   )
 }

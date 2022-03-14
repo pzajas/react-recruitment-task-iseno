@@ -13,16 +13,16 @@ const StyledListContainer = styled.div`
   }
 `
 
-const List = ({ moviesList, className }) => {
+const Movies = ({ moviesList, className, lastVote, setLastVote }) => {
   return (
     <StyledListContainer className={className}>
       {moviesList.map(item => (
         <li key={item.id}>
-          <Movie item={item} />
+          <Movie item={item} lastVote={lastVote} setLastVote={setLastVote} />
         </li>
       ))}
     </StyledListContainer>
   )
 }
 
-export default List
+export default Movies

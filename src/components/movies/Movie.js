@@ -49,20 +49,12 @@ const StyledModalContainer = styled(Modal)`
   align-items: center;
 `
 
-const Movie = ({ item }) => {
-  let [movieCast, setMovieCast] = useState([])
+const Movie = ({ item, lastVote, setLastVote }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
-  let [averageMovieScore, setAverageMovieScore] = useState(0)
-  let [sumOfVotePoints, setSumOfVotePoints] = useState(0)
-  let [numberOfVotes, setNumberOfVotes] = useState(0)
-
-  console.log(item.genre_ids.map(item => item))
-
-  // const handleFetchMovieCast = () => {
-  //   fetch(`https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=46e56d3f76c06d160ec38e2e58d674ef`)
-  //     .then(response => response.json())
-  //     .then(credits => setMovieCast(credits.cast))
-  // }
+  const [averageMovieScore, setAverageMovieScore] = useState(0)
+  const [sumOfVotePoints, setSumOfVotePoints] = useState(0)
+  const [numberOfVotes, setNumberOfVotes] = useState(0)
+  const [isCastVisible, setIsCastVisible] = useState(false)
 
   const handleIsModalVisible = () => {
     setIsModalVisible(true)
@@ -70,8 +62,16 @@ const Movie = ({ item }) => {
 
   return (
     <StyledMovieContainer style={{ cursor: "pointer" }}>
-      <StyledModalContainer isOpen={isModalVisible} style={{ overlay: { backgroundColor: "rgba(22, 22, 22, 0.9)" } }}>
+      <StyledModalContainer
+        isOpen={isModalVisible}
+        ariaHideApp={false}
+        style={{ overlay: { backgroundColor: "rgba(22, 22, 22, 0.9)" } }}
+      >
         <MovieCard
+          isCastVisible={isCastVisible}
+          setIsCastVisible={setIsCastVisible}
+          lastVote={lastVote}
+          setLastVote={setLastVote}
           sumOfVotePoints={sumOfVotePoints}
           numberOfVotes={numberOfVotes}
           setSumOfVotePoints={setSumOfVotePoints}
@@ -90,19 +90,10 @@ const Movie = ({ item }) => {
           )}
         </div>
         <div>{item.release_date.split("-").reverse().join("-")}</div>
-
         <div> {sumOfVotePoints === 0 ? "No votes" : averageMovieScore.toFixed(3)}</div>
       </StyledDataContainer>
     </StyledMovieContainer>
   )
-}
-
-{
-  /* <div>
-        {movieCast.map(actor => (
-          <li>{actor.name}</li>
-        ))}
-      </div> */
 }
 
 export default Movie

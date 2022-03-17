@@ -85,9 +85,11 @@ const Movie = ({ item, lastVote, setLastVote }) => {
       <StyledDataContainer>
         <p onClick={handleIsModalVisible}>{item.title}</p>
         <div>
-          {item.genre_ids.map(item =>
-            item < 16 ? <StyledReactIcon /> : item < 100 ? <StyledAngualrIcon /> : <StyledVueIcon />
-          )}
+          {item.genre_ids.map(item => (
+            <div key={item.id}>
+              {item < 16 ? <StyledReactIcon /> : item < 100 ? <StyledAngualrIcon /> : <StyledVueIcon />}
+            </div>
+          ))}
         </div>
         <div>{item.release_date.split("-").reverse().join("-")}</div>
         <div> {sumOfVotePoints === 0 ? "No votes" : averageMovieScore.toFixed(3)}</div>

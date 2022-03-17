@@ -24,7 +24,7 @@ function App() {
   const [moviesList, setMoviesList] = useState([])
   const [lastVote, setLastVote] = useState([])
 
-  const API_KEY = "46e56d3f76c06d160ec38e2e58d674ef"
+  const API_KEY = process.env.REACT_APP_MOVIES_API_KEY
 
   useEffect(() => {
     localStorage.setItem("lastVote", JSON.stringify(lastVote))

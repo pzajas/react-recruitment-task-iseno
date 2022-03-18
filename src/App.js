@@ -4,6 +4,8 @@ import Form from "./components/form/Form"
 import LastVote from "./components/lastvote/LastVote"
 import Movies from "./components/movies/Movies"
 
+console.log(process.env)
+
 const StyledApplicationContainer = styled.div`
   display: flex;
   flex-direction: column;

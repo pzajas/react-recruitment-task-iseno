@@ -22,7 +22,7 @@ const StyledFormContainer = styled.form`
 const Form = ({ handleOnSubmit, handleOnChange, input }) => {
   return (
     <StyledFormContainer onSubmit={handleOnSubmit}>
-      <input value={input} onChange={handleOnChange} />
+      <input value={input} placeholder="Type the title of the movie" onChange={handleOnChange} />
       <button>Search</button>
     </StyledFormContainer>
   )
